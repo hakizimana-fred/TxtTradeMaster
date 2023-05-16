@@ -3,9 +3,10 @@ import http from "http";
 import https from "https";
 import fs from "fs";
 import "dotenv/config";
+import { configMiddleware } from "./middlewares/";
 
 // enable https
-let isHttps = true;
+const isHttps = true;
 
 const options = {
   key: fs.readFileSync("key.pem"),
@@ -14,6 +15,7 @@ const options = {
 
 const run = () => {
   const app = express();
+  configMiddleware(app);
 
   if (isHttps)
     return https
