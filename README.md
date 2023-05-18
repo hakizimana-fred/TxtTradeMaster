@@ -25,9 +25,9 @@ TxtTradeMaster is an automated trading bot that executes trades based on instruc
 ### Configuration
 
 1. Rename `.env.example` file to `.env`.
-2. Replace `YOUR_API_KEY` and `YOUR_API_SECRET` in the `.env` file with your Binance API key and secret.
+2. Replace `YOUR_API_KEY` and `YOUR_API_SECRET` in the `.env` file with your ByBit API key and secret.
 
 ### Usage
 
 1. Place your trade instructions in a text file (e.g., `instructions.txt`).
-2. Run the script: `npm start instructions.txt`
+2. Run the script: `npm start or yarn start`
