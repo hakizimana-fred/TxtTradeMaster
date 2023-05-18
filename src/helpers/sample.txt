@@ -1,0 +1,4 @@
+On May 20th, 2023, execute the following trades:
+1. Place a limit order to buy 0.04 of ETHUSDT limit price of 1800.
+2. Execute a market order to sell BTCUSDT of about 0.07.
+3. At 3:00 PM, execute a limit order to buy ETHUSDT of about 0.08 

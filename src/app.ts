@@ -2,11 +2,12 @@ import express from "express";
 import http from "http";
 import https from "https";
 import fs from "fs";
+import { readFile } from "./helpers/fileReader";
 import "dotenv/config";
 import { configMiddleware } from "./middlewares/";
 
 // enable https
-const isHttps = true;
+const isHttps = false;
 
 const options = {
   key: fs.readFileSync("key.pem"),
@@ -21,9 +22,10 @@ const run = () => {
     return https
       .createServer(options, app)
       .listen(process.env.PORT, () => console.log("server running on https"));
-  return http
-    .createServer(app)
-    .listen(process.env.PORT, () => console.log("server running on http"));
+  return http.createServer(app).listen(process.env.PORT, () => {
+    console.log("server running on http");
+    readFile.read();
+  });
 };
 
 void run();
