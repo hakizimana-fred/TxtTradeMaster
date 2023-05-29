@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { franc, francAll } from "franc";
 
 class ReadFile {
   async read() {
@@ -19,7 +20,21 @@ class ReadFile {
         ),
       };
 
-      console.log(executions, "executions");
+      const symbolPattern = /([A-Z]+)/g;
+
+      const [marketPair, limitPair] = [
+        executions.market.match(symbolPattern)[1],
+        executions.limit.match(symbolPattern)[1],
+      ];
+
+      const regex = /([\d,]+(?:\.\d+)?)/;
+      const marketQty = executions.market.match(regex);
+      const limitQty = executions.limit.match(regex);
+
+      // place market order
+      if (marketQty) {
+        const quantity = parseFloat(marketQty[1].replace(",", "."));
+      }
     }
   }
 }
