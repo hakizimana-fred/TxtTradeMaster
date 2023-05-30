@@ -5,6 +5,7 @@ import fs from "fs";
 import { readFile } from "./helpers/fileReader";
 import "dotenv/config";
 import { configMiddleware } from "./middlewares/";
+import configRoutes from "./routes";
 
 // enable https
 const isHttps = false;
@@ -17,6 +18,7 @@ const options = {
 const run = () => {
   const app = express();
   configMiddleware(app);
+  configRoutes(app);
 
   if (isHttps)
     return https
