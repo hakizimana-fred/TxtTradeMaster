@@ -3,10 +3,11 @@ import path from "path";
 import { franc, francAll } from "franc";
 import { regex, symbolPattern } from "../constants";
 import { instructions } from "../utils/instructions";
+import { redis } from "../utils/fileLocator";
 
 class ReadFile {
-  async read() {
-    const data = fs.readFileSync(path.join(__dirname, "sample.txt"), "utf8");
+  async read(filePath: string) {
+    const data = fs.readFileSync(filePath, "utf8");
     return this.parseData(data);
   }
 

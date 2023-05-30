@@ -8,6 +8,7 @@ import {
   WalletBalances,
 } from "bybit-api";
 import { CONFIGS } from "../config";
+import "dotenv/config";
 
 /**
  * Represents byBitExchange
@@ -84,8 +85,8 @@ class ByBitExchange {
 }
 
 export const bybit = new ByBitExchange({
-  key: "QpyF4vURSGN5EnRr1l",
-  secret: "zAqQsbx3bUQjJqWmhZvLFDDiYnRNxqTjcFEL",
+  key: String(process.env.BY_BIT_API_KEY),
+  secret: String(process.env.BY_BIT_API_SECRET),
   testnet: true,
-  url: "https://api-testnet.bybit.com/",
+  url: String(process.env.TEST_NET_URL),
 });

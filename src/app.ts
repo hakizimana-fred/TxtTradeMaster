@@ -25,10 +25,10 @@ const run = () => {
     return https
       .createServer(options, app)
       .listen(process.env.PORT, () => console.log("server running on https"));
-  return http.createServer(app).listen(process.env.PORT, () => {
+  return http.createServer(app).listen(process.env.PORT, async () => {
     console.log("server running on http");
-    // locate file path
-    readFilePath();
+    const filePath = (await readFilePath()) as unknown as string;
+    await readFile.read(filePath);
   });
 };
 
