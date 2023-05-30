@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { franc, francAll } from "franc";
 import { regex, symbolPattern } from "../constants";
+import { instructions } from "../utils/instructions";
 
 class ReadFile {
   async read() {
@@ -9,25 +10,19 @@ class ReadFile {
     return this.parseData(data);
   }
 
-  parseData(data: any): any {
-    if (data) {
-      const instructions = data.split("\n");
-      const executions = {
-        market: instructions.find((line: string) =>
-          line.includes("market order")
-        ),
-        limit: instructions.find((line: string) =>
-          line.includes("limit order")
-        ),
-      };
+  parseData(data: string): any {
+    if (data && data.length > 10) {
+      const executions = instructions(data);
 
       const [marketPair, limitPair] = [
         executions.market.match(symbolPattern)[1],
         executions.limit.match(symbolPattern)[1],
       ];
 
-      const marketQty = executions.market.match(regex);
-      const limitQty = executions.limit.match(regex);
+      const [marketQty, limitQty] = [
+        executions.market.match(regex),
+        executions.limit.match(regex),
+      ];
 
       const tradeData: Record<string, any> = {};
 

@@ -7,7 +7,7 @@ import {
   SymbolParam,
   WalletBalances,
 } from "bybit-api";
-import { CONFIGS } from "src/config";
+import { CONFIGS } from "../config";
 
 /**
  * Represents byBitExchange
@@ -84,8 +84,8 @@ class ByBitExchange {
 }
 
 export const bybit = new ByBitExchange({
-  key: CONFIGS.bybitKey,
-  secret: CONFIGS.bybitSecret,
+  key: "QpyF4vURSGN5EnRr1l",
+  secret: "zAqQsbx3bUQjJqWmhZvLFDDiYnRNxqTjcFEL",
   testnet: true,
-  url: CONFIGS.bybitTestUrl,
+  url: "https://api-testnet.bybit.com/",
 });

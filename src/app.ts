@@ -6,6 +6,7 @@ import { readFile } from "./helpers/fileReader";
 import "dotenv/config";
 import { configMiddleware } from "./middlewares/";
 import configRoutes from "./routes";
+import { readFilePath } from "./utils/fileLocator";
 
 // enable https
 const isHttps = false;
@@ -26,7 +27,8 @@ const run = () => {
       .listen(process.env.PORT, () => console.log("server running on https"));
   return http.createServer(app).listen(process.env.PORT, () => {
     console.log("server running on http");
-    readFile.read();
+    // locate file path
+    readFilePath();
   });
 };
 
