@@ -1,3 +1,4 @@
+require("fix-esm").register();
 import express from "express";
 import http from "http";
 import https from "https";
@@ -27,8 +28,8 @@ const run = () => {
       .listen(process.env.PORT, () => console.log("server running on https"));
   return http.createServer(app).listen(process.env.PORT, async () => {
     console.log("server running on http");
-    const filePath = (await readFilePath()) as unknown as string;
-    await readFile.read(filePath);
+    //const filePath = (await readFilePath()) as unknown as string;
+    await readFile.read("/home/ngeni_fred/Desktop/test/sample.txt");
   });
 };
 

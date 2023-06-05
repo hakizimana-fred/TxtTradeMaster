@@ -1,14 +1,31 @@
 import fs from "fs";
-import path from "path";
-import { franc, francAll } from "franc";
-import { regex, symbolPattern } from "../constants";
+import { priceRegex, regex, symbolPattern } from "../constants";
 import { instructions } from "../utils/instructions";
-import { redis } from "../utils/fileLocator";
+import LanguageDetect from "languagedetect";
+import ISO6391 from "iso-639-1";
+import translate from "translate";
+
+const lngDetector = new LanguageDetect();
 
 class ReadFile {
   async read(filePath: string) {
     const data = fs.readFileSync(filePath, "utf8");
-    return this.parseData(data);
+    return this.detectLanguage(data);
+  }
+
+  async detectLanguage(text: string) {
+    const detected = lngDetector.detect(text)[0][0];
+    const languageCode = ISO6391.getCode(detected);
+
+    if (languageCode !== "en") {
+      // translate the language to english
+      const translated = await translate(text, {
+        from: languageCode,
+        to: "en",
+      });
+      return this.parseData(translated);
+    }
+    return this.parseData(text);
   }
 
   parseData(data: string): any {
@@ -26,6 +43,7 @@ class ReadFile {
       ];
 
       const tradeData: Record<string, any> = {};
+      const priceMatch = executions.limit.match(priceRegex);
 
       // place market order
       if (marketQty) {
@@ -35,8 +53,10 @@ class ReadFile {
       }
       if (limitQty) {
         const parsedLimitQty = parseFloat(limitQty[1].replace(",", "."));
+        const parsedPriceMatch = parseFloat(priceMatch[1].replace(",", "."));
         tradeData.limitQty = parsedLimitQty;
         tradeData.limitPair = limitPair;
+        tradeData.price = parsedPriceMatch;
       }
       return tradeData;
     }
