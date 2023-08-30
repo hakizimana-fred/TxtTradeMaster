@@ -29,7 +29,7 @@ const run = () => {
   return http.createServer(app).listen(process.env.PORT, async () => {
     console.log("server running on http");
     //const filePath = (await readFilePath()) as unknown as string;
-    await readFile.read("/home/ngeni_fred/Desktop/test/sample.txt");
+    await readFile.read("/your-file-path/sample.txt");
   });
 };
 
